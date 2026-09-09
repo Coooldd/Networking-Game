@@ -1,23 +1,11 @@
 import threading
 import socket
 
-host = socket.gethostbyname(socket.gethostname())
-PORT = 6782
+from networking_objects.server_networking_manager import ServerNetworkingManager
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind((host, PORT))
+server_networking_manager = ServerNetworkingManager()
 
-threads = []
 
-def client_begin_point(client_socket) -> None:
-    pass
-
-server.listen()
-
-while True:
-    communication_socket, address = server.accept()
-    print(f"Got a connection from {address}, initializating player...")
-
-    t = threading.Thread(target=client_begin_point, args=[communication_socket])
-    threads.append(t)
+for client_socket, client_address in server_networking_manager.listen():
+    t = threading.Thread(target=server_networking_manager.client_begin_point, args=(client_socket, client_address))
     t.start()
