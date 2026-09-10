@@ -1,6 +1,8 @@
 import socket
 import json
 
+from networking_objects.net_msg import send_msg, recieve_exact, recieve_msg
+
 class ClientNetworkingManager():
     def __init__(self, server_host, port=6782):
         self.server_host = server_host
@@ -17,17 +19,7 @@ class ClientNetworkingManager():
             print("Could not connect.")
 
     def send_data(self, data: dict):
-        try:
-            self.conn.sendall(json.dumps(data).encode('utf-8'))
-        except socket.error as e:
-            print(f"Error sending data: {e}")
+        send_msg(self.conn, data)
 
-    def recieve_data(self):
-        try:
-            raw_data = self.conn.recv(2048).decode('utf-8')
-            if not raw_data:
-                return {}
-            return json.loads(raw_data)
-        except Exception as e:
-            print(f"Error receiving data: {e}")
-            return {}
+    def recieve_data(self): # receieves one message sent by the server.
+        return recieve_msg(self.conn)

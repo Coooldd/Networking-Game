@@ -7,6 +7,7 @@ from game_objects.player_obj import Player
 from utilities.vector2 import Vector2
 from networking_objects.client_networking_manager import ClientNetworkingManager
 
+
 class ClientGameFunctionality():
     def __init__(self, server_ip: str):
         pygame.init()
