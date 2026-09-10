@@ -16,7 +16,7 @@ def recieve_exact(sock, n): # recieves exactly n bytes
         buffer.extend(chunk)
     return bytes(buffer)
 
-def recieve_msg(sock):
+def recieve_msg(sock) -> dict | None:
     try:
         header = recieve_exact(sock, 4)
     except ConnectionError:

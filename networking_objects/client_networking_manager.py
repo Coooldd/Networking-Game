@@ -1,7 +1,7 @@
 import socket
 import json
 
-from networking_objects.net_msg import send_msg, recieve_exact, recieve_msg
+from networking_objects.net_msg import send_msg, recieve_msg
 
 class ClientNetworkingManager():
     def __init__(self, server_host, port=6782):
@@ -21,5 +21,5 @@ class ClientNetworkingManager():
     def send_data(self, data: dict):
         send_msg(self.conn, data)
 
-    def recieve_data(self): # receieves one message sent by the server.
+    def recieve_data(self) -> dict | None: # receieves one message sent by the server.
         return recieve_msg(self.conn)
