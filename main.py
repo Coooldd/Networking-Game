@@ -1,7 +1,4 @@
-import socket
-import threading
-
-from client_game_functionality import ClientGameFunctionality
+from networking_objects.client.client_game_functionality import ClientGameFunctionality
 
 
 game = ClientGameFunctionality('10.137.135.192')

@@ -1,7 +1,7 @@
 import threading
 
-from networking_objects.network_server import NetworkServer
-from networking_objects.game_state import GameState
+from networking_objects.server.network_server import NetworkServer
+from networking_objects.server.game_state import GameState
 
 
 class GameServer:

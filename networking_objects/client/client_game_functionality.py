@@ -6,7 +6,7 @@ from typing import Any
 
 from game_objects.player_obj import Player
 from utilities.vector2 import Vector2
-from networking_objects.client_networking_manager import ClientNetworkingManager
+from networking_objects.client.client_networking_manager import ClientNetworkingManager
 
 
 class ClientGameFunctionality():
