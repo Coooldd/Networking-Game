@@ -1,4 +1,3 @@
-import time
 import queue
 import random
 import itertools
@@ -6,6 +5,7 @@ import logging
 
 from game_objects.player_obj import Player
 from utilities.vector2 import Vector2
+from networking_objects.server.game_clock import GameClock
 
 
 # this class owns all simulation management
@@ -32,9 +32,10 @@ class GameState:
     def get_snapshot(self) -> dict:
         return {"players": {p.id: p._network_get_dict() for p in self.players.values()}}
 
-
     # function ran by the queue
     def run(self):
+        clock = GameClock(target_fps=100)
+
         while True:
             # update the state of objects based off of the clients input
             while not self._action_queue.empty():
@@ -42,9 +43,12 @@ class GameState:
                 self._apply_action(action, payload)
 
             # update the movement of objects, etc... based off of their state
-            for player in self.players.values():
-                player.update_player() # must run at a fixed rate, 60 tims a second, etc...
-            time.sleep(0.01)
+            for _ in range(clock.tick()):
+                for player in self.players.values():
+                    player.update_player(clock.tick_rate) # must run at a fixed rate, 60 tims a second, etc...
+
+            clock.sleep_until_next_frame()
+
 
     def _apply_action(self, action, payload):
         if action == "ADD_PLAYER":

@@ -44,7 +44,6 @@ class ClientGameFunctionality():
     def manage_input(self) -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                print("game_running is false now")
                 self.game_running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
@@ -72,7 +71,6 @@ class ClientGameFunctionality():
     def manage_networking(self):
         while self.game_running:
             self.network.send_data(self.data_to_server)
-            print(self.data_to_server)
             incoming_data = self.network.recieve_data()
             if incoming_data is not None:
                 self.data_from_server = incoming_data

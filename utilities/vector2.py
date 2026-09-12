@@ -12,8 +12,16 @@ class Vector2:
         mag = self.mag()
         return Vector2(self.x / mag, self.y / mag)
 
-    def __add__(self, other):
+    def __add__(self, other: Vector2):
         return Vector2(self.x + other.x, self.y + other.y)
+
+    def __mul__(self, scalar: float):
+        return Vector2(self.x * scalar, self.y * scalar)
+
+    def __imul__(self, scalar: float):
+        self.x *= scalar
+        self.y *= scalar
+        return self
 
     def __iter__(self):
         yield self.x
