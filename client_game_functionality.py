@@ -27,7 +27,7 @@ class ClientGameFunctionality():
         self.thread_networking = threading.Thread(target=self.manage_networking, daemon=True)
 
         self.data_to_server = dict()
-        self.data_to_server['key_a'] = False
+        self.data_to_server["input"] = dict()
 
         self.data_from_server: dict[str, Any] = {} # see server_to_client.json for example object
 
@@ -72,6 +72,7 @@ class ClientGameFunctionality():
     def manage_networking(self):
         while self.game_running:
             self.network.send_data(self.data_to_server)
+            print(self.data_to_server)
             incoming_data = self.network.recieve_data()
             if incoming_data is not None:
                 self.data_from_server = incoming_data
